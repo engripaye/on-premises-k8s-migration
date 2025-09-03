@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: use-restricted-scc
+  namespace: team-a
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:restricted-v2
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: team-a

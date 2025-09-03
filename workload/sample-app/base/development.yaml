@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: sample-app }
+  template:
+    metadata:
+      labels: { app: sample-app }
+    spec:
+      containers:
+        - name: app
+          image: image-registry.openshift-image-registry.svc:5000/team-a/sample-app:latest
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
